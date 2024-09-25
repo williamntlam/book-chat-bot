@@ -1,0 +1,64 @@
+<main
+  class="min-h-screen bg-slate-100 flex flex-col justify-center items-center p-10"
+>
+  <form
+    #characterForm="ngForm"
+    (ngSubmit)="onSubmit(characterForm)"
+    class="w-8/12 min-h-screen p-10 bg-white shadow-md rounded"
+  >
+    <!-- Character Name Field -->
+    <div>
+      <label for="character-name" class="block text-gray-700 font-bold mb-2"
+        >Character Name:</label
+      >
+      <input
+        type="text"
+        id="character-name"
+        name="character-name"
+        ngModel
+        required
+        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <div
+        *ngIf="
+          characterForm.controls['character-name']?.invalid &&
+          characterForm.controls['character-name']?.touched
+        "
+      >
+        <small class="text-red-500">Character name is required.</small>
+      </div>
+    </div>
+
+    <!-- Character Description (Text Area) -->
+    <div class="mb-4 flex-grow">
+      <label
+        for="character-description"
+        class="block text-gray-700 font-bold mb-2"
+        >Character Description:</label
+      >
+      <textarea
+        id="character-description"
+        name="character-description"
+        ngModel
+        required
+        class="w-full min-h-screen px-3 flex-grow border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+      ></textarea>
+      <div
+        *ngIf="
+          characterForm.controls['character-description']?.invalid &&
+          characterForm.controls['character-description']?.touched
+        "
+      >
+        <small class="text-red-500">Character description is required.</small>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="characterForm.invalid"
+      class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      Submit
+    </button>
+  </form>
+</main>

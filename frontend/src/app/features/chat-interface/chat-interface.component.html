@@ -1,0 +1,64 @@
+<div class="flex flex-col h-screen bg-gray-100 w-screen pl-12 pr-12">
+  <!-- Header -->
+  <header class="bg-white shadow-sm p-4 flex justify-between items-center">
+    <input
+      class="text-xl font-bold"
+      type="text"
+      [value]="characterName"
+      readonly
+    />
+    <!-- Dropdown for Character Description -->
+    <div class="flex items-center">
+      <button
+        (click)="toggleDescriptionVisibility()"
+        class="bg-blue-500 text-white px-4 py-2 rounded ml-4"
+      >
+        {{
+          isDescriptionVisible
+            ? "Hide Character Description"
+            : "Show Character Description"
+        }}
+      </button>
+    </div>
+  </header>
+  <!-- Dropdown Content -->
+  <div class="p-4">
+    <div *ngIf="isDescriptionVisible" class="mt-2 p-4 bg-white shadow rounded">
+      <p>{{ characterDescription }}</p>
+    </div>
+  </div>
+
+  <!-- Chat area -->
+  <div class="flex-grow flex flex-col p-4 overflow-hidden w-full">
+    <!-- Messages container -->
+    <div class="flex-grow overflow-y-auto mb-4 space-y-2 w-full">
+      <div
+        *ngFor="let message of messages"
+        [ngClass]="
+          message.sender === 'user'
+            ? 'ml-auto bg-blue-100'
+            : 'mr-auto bg-gray-300'
+        "
+        class="max-w-sm md:max-w-lg rounded-lg py-2 px-3 text-sm break-words"
+      >
+        {{ message.text }}
+      </div>
+    </div>
+
+    <!-- Input form -->
+    <form (ngSubmit)="sendMessage()" class="flex bg-white rounded-lg shadow">
+      <input
+        [(ngModel)]="userInput"
+        name="userInput"
+        placeholder="Type a message..."
+        class="flex-grow p-3 rounded-l-lg focus:outline-none"
+      />
+      <button
+        type="submit"
+        class="px-4 py-3 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 focus:outline-none"
+      >
+        Send
+      </button>
+    </form>
+  </div>
+</div>
